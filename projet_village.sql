@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 16 mai 2022 à 10:25
+-- Généré le : jeu. 02 juin 2022 à 12:07
 -- Version du serveur : 10.5.15-MariaDB-0ubuntu0.21.10.1
--- Version de PHP : 7.4.29
+-- Version de PHP : 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `projet_village_remplis`
 --
-CREATE DATABASE IF NOT EXISTS `projet_village_remplis` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `projet_village_remplis`;
 
 -- --------------------------------------------------------
 
@@ -75,10 +73,10 @@ CREATE TABLE `proposition` (
   `proposition_description` text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `proposition_date` datetime NOT NULL,
   `proposition_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fk_villageois_EMAIL` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fk_categorie_ID` int(11) DEFAULT NULL,
-  `fk_periode_date_debut` date DEFAULT NULL,
-  `fk_periode_date_fin` date DEFAULT NULL
+  `villageois_EMAIL` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `categorie_ID` int(11) DEFAULT NULL,
+  `perioded` date DEFAULT NULL,
+  `periodef` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -140,9 +138,9 @@ ALTER TABLE `periode`
 --
 ALTER TABLE `proposition`
   ADD PRIMARY KEY (`proposition_ID`),
-  ADD KEY `fk_villageois_EMAIL` (`fk_villageois_EMAIL`),
-  ADD KEY `fk_categorie_ID` (`fk_categorie_ID`),
-  ADD KEY `fk_periode_date_debut` (`fk_periode_date_debut`,`fk_periode_date_fin`);
+  ADD KEY `fk_villageois_EMAIL` (`villageois_EMAIL`),
+  ADD KEY `fk_periode_date_debut` (`perioded`,`periodef`),
+  ADD KEY `fk_categorie_ID` (`categorie_ID`) USING BTREE;
 
 --
 -- Index pour la table `villageois`
@@ -194,9 +192,9 @@ ALTER TABLE `commentaire`
 -- Contraintes pour la table `proposition`
 --
 ALTER TABLE `proposition`
-  ADD CONSTRAINT `proposition_ibfk_1` FOREIGN KEY (`fk_villageois_EMAIL`) REFERENCES `villageois` (`villageois_EMAIL`),
-  ADD CONSTRAINT `proposition_ibfk_2` FOREIGN KEY (`fk_categorie_ID`) REFERENCES `categorie` (`categorie_ID`),
-  ADD CONSTRAINT `proposition_ibfk_3` FOREIGN KEY (`fk_periode_date_debut`,`fk_periode_date_fin`) REFERENCES `periode` (`periode_date_debut`, `periode_date_fin`);
+  ADD CONSTRAINT `proposition_ibfk_1` FOREIGN KEY (`villageois_EMAIL`) REFERENCES `villageois` (`villageois_EMAIL`),
+  ADD CONSTRAINT `proposition_ibfk_2` FOREIGN KEY (`categorie_ID`) REFERENCES `categorie` (`categorie_ID`),
+  ADD CONSTRAINT `proposition_ibfk_3` FOREIGN KEY (`perioded`,`periodef`) REFERENCES `periode` (`periode_date_debut`, `periode_date_fin`);
 
 --
 -- Contraintes pour la table `vote`

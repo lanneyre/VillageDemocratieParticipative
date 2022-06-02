@@ -5,32 +5,32 @@ class Villageois extends Utils
     protected string $villageois_nom;
     protected string $villageois_prenom;
     protected string $villageois_adresse;
-    protected DateTime $villageois_date_naissance;
+    protected string|DateTime $villageois_date_naissance;
     protected string $villageois_mot_de_passe;
     protected string $villageois_privilege;
     protected string $villageois_mandat;
 
-    function __construct(string $email = "", string $nom = "", string $prenom = "", string $adresse = "", string $dob = "", string $mdp = "", string $privilege = "privilege_user", string $mandat = "mandat_habitant")
+    function __construct(string $villageois_EMAIL = "", string $villageois_nom = "", string $villageois_prenom = "", string $villageois_adresse = "", string $villageois_date_naissance = "", string $villageois_mot_de_passe = "", string $villageois_privilege = "privilege_user", string $villageois_mandat = "mandat_habitant")
     {
-        $this->villageois_EMAIL = $email;
-        $this->villageois_nom = $nom;
-        $this->villageois_prenom = $prenom;
-        $this->villageois_adresse = $adresse;
-        $this->villageois_date_naissance = empty($dob) ? new DateTime() : new DateTime($dob);
-        $this->villageois_mot_de_passe = password_hash($mdp, PASSWORD_DEFAULT);
-        $this->villageois_privilege = $privilege;
-        $this->villageois_mandat = $mandat;
+        $this->villageois_EMAIL = $villageois_EMAIL;
+        $this->villageois_nom = $villageois_nom;
+        $this->villageois_prenom = $villageois_prenom;
+        $this->villageois_adresse = $villageois_adresse;
+        $this->villageois_date_naissance = empty($villageois_date_naissance) ? new DateTime() : new DateTime($villageois_date_naissance);
+        $this->villageois_mot_de_passe = password_hash($villageois_mot_de_passe, PASSWORD_DEFAULT);
+        $this->villageois_privilege = $villageois_privilege;
+        $this->villageois_mandat = $villageois_mandat;
     }
 
-    public static function all()
-    {
-        $con = Bdd::getCon();
-        $sql = "SELECT * FROM villageois";
-        // $this->exist();
-        $req = $con->query($sql);
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Villageois");
-        return $req->fetchAll();
-    }
+    // public static function all()
+    // {
+    //     $con = Bdd::getCon();
+    //     $sql = "SELECT * FROM villageois";
+    //     // $this->exist();
+    //     $req = $con->query($sql);
+    //     $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Villageois");
+    //     return $req->fetchAll();
+    // }
 
     public static function getByEmail(string $email): Villageois
     {

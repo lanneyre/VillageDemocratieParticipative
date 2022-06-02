@@ -18,4 +18,17 @@ abstract class Utils
             $this->$name = $value;
         }
     }
+
+    public static function all()
+    {
+        $con = Bdd::getCon();
+        $class = get_called_class();
+        $sql = "SELECT * FROM " . strtolower($class);
+        // $this->exist();
+        $req = $con->query($sql);
+        //var_dump($class);
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
+        //$req->setFetchMode(PDO::FETCH_OBJ);
+        return $req->fetchAll();
+    }
 }

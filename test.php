@@ -35,7 +35,7 @@ echo "<pre>";
 
 
 // avec Static
-$testv = Villageois::getByEmail(email: "pierreAntoine@free.fr");
+//$testv = Villageois::getByEmail(email: "pierreAntoine@free.fr");
 //var_dump($testv);
 
 // Sans Static (presque)
@@ -44,16 +44,16 @@ $testv = Villageois::getByEmail(email: "pierreAntoine@free.fr");
 //$testV->recupDataInTheBdd();
 //var_dump($testV);
 
-
-//var_dump(Villageois::all());
+$testProp = Proposition::getById(1);
+var_dump($testProp->periode());
 
 echo "</pre>";
 // $testv->villageois_adresse = "22 rue des idéalistes";
 // $testv->villageois_EMAIL = "22 rue des idéalistes";
 // $testv->save();
 
-$testInsert = new Villageois("test2@test2.com3", "test 42 ", "23", "f,dvbjvkd", "1986-09-02", "oui");
-$testInsert->save();
+// $testInsert = new Villageois("test2@test2.com3", "test 42 ", "23", "f,dvbjvkd", "1986-09-02", "oui");
+// $testInsert->save();
 // //var_dump($testV);
 
 Bdd::close();
