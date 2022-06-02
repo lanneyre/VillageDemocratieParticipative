@@ -22,16 +22,6 @@ class Villageois extends Utils
         $this->villageois_mandat = $villageois_mandat;
     }
 
-    // public static function all()
-    // {
-    //     $con = Bdd::getCon();
-    //     $sql = "SELECT * FROM villageois";
-    //     // $this->exist();
-    //     $req = $con->query($sql);
-    //     $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Villageois");
-    //     return $req->fetchAll();
-    // }
-
     public static function getByEmail(string $email): Villageois
     {
         $con = Bdd::getCon();
@@ -42,21 +32,21 @@ class Villageois extends Utils
         return $req->fetch();
     }
 
-    public function recupDataInTheBdd(): void
-    {
-        $con = Bdd::getCon();
-        $sql = "SELECT * FROM villageois WHERE villageois_EMAIL = :villageois_EMAIL";
-        $req = $con->prepare($sql);
-        $req->execute([":villageois_EMAIL" => $this->villageois_EMAIL]);
-        $v = $req->fetch(PDO::FETCH_OBJ);
-        foreach ($v as $cle => $value) {
-            if ($this->$cle instanceof DateTime) {
-                $this->$cle = new DateTime($value);
-            } else {
-                $this->$cle = $value;
-            }
-        }
-    }
+    // public function recupDataInTheBdd(): void
+    // {
+    //     $con = Bdd::getCon();
+    //     $sql = "SELECT * FROM villageois WHERE villageois_EMAIL = :villageois_EMAIL";
+    //     $req = $con->prepare($sql);
+    //     $req->execute([":villageois_EMAIL" => $this->villageois_EMAIL]);
+    //     $v = $req->fetch(PDO::FETCH_OBJ);
+    //     foreach ($v as $cle => $value) {
+    //         if ($this->$cle instanceof DateTime) {
+    //             $this->$cle = new DateTime($value);
+    //         } else {
+    //             $this->$cle = $value;
+    //         }
+    //     }
+    // }
 
     private function exist(): bool
     {

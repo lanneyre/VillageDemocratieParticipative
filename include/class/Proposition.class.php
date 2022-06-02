@@ -37,7 +37,6 @@ class Proposition extends Utils
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Proposition");
         return $req->fetch();
     }
-
     public function villageois(): Villageois
     {
         return Villageois::getByEmail($this->villageois_EMAIL);
@@ -46,7 +45,6 @@ class Proposition extends Utils
     {
         return Categorie::getById($this->categorie_ID);
     }
-
     public function periode(): Periode
     {
         return Periode::getByDate(new DateTime($this->perioded), new DateTime($this->periodef));
