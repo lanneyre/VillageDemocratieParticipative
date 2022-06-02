@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : jeu. 02 juin 2022 à 12:07
+-- Généré le : jeu. 02 juin 2022 à 15:50
 -- Version du serveur : 10.5.15-MariaDB-0ubuntu0.21.10.1
 -- Version de PHP : 8.1.6
 
@@ -44,8 +44,8 @@ CREATE TABLE `commentaire` (
   `commentaire_texte` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `commentaire_date` datetime NOT NULL,
   `commentaire_etat` enum('actif','supprimé') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fk_proposition_ID` int(11) NOT NULL,
-  `fk_villageois_EMAIL` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `proposition_ID` int(11) NOT NULL,
+  `villageois_EMAIL` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -124,8 +124,8 @@ ALTER TABLE `categorie`
 --
 ALTER TABLE `commentaire`
   ADD PRIMARY KEY (`commentaire_ID`),
-  ADD KEY `fk_villageois_EMAIL` (`fk_villageois_EMAIL`),
-  ADD KEY `fk_proposition_ID` (`fk_proposition_ID`);
+  ADD KEY `fk_villageois_EMAIL` (`villageois_EMAIL`),
+  ADD KEY `fk_proposition_ID` (`proposition_ID`);
 
 --
 -- Index pour la table `periode`
@@ -185,8 +185,8 @@ ALTER TABLE `proposition`
 -- Contraintes pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  ADD CONSTRAINT `commentaire_ibfk_1` FOREIGN KEY (`fk_villageois_EMAIL`) REFERENCES `villageois` (`villageois_EMAIL`),
-  ADD CONSTRAINT `commentaire_ibfk_2` FOREIGN KEY (`fk_proposition_ID`) REFERENCES `proposition` (`proposition_ID`);
+  ADD CONSTRAINT `commentaire_ibfk_1` FOREIGN KEY (`villageois_EMAIL`) REFERENCES `villageois` (`villageois_EMAIL`),
+  ADD CONSTRAINT `commentaire_ibfk_2` FOREIGN KEY (`proposition_ID`) REFERENCES `proposition` (`proposition_ID`);
 
 --
 -- Contraintes pour la table `proposition`
