@@ -46,24 +46,29 @@ echo "<pre>";
 
 // $testProp = Proposition::getById(1);
 // var_dump($testProp->periode());
-var_dump(Villageois::all());
+// var_dump(Villageois::all());
 // $newCat = new Categorie(categorie_nom: "PHP5", categorie_description: "l'a qraime dé phranssé");
 // $newCat->save();
-echo "<hr>";
-$recupVil = Villageois::getByEmail("22 rue des idéalistes");
+// echo "<hr>";
+// $recupVil = Villageois::getByEmail("22 rue des idéalistes");
 
 // $recupCat->categorie_description = "La crème de la France";
-var_dump($recupVil);
+// var_dump($recupVil);
 // $recupCat->save();
-$recupVil->delete();
+// $recupVil->delete();
 
-echo "<hr>";
-var_dump(Villageois::all());
-
-
+// echo "<hr>";
+// var_dump(Villageois::all());
 
 // echo "<hr>";
 // var_dump(Categorie::all());
+var_dump(Commentaire::all());
+// $com = new Commentaire(texte: "les PHP5 sont fatigués", date: (new DateTime())->format("Y-m-d"), etat: "actif", proposition_ID: 1, villageois_EMAIL: "pierreAntoine@free.fr");
+$com = Commentaire::getById(1);
+$com->commentaire_texte = "Les PHP sont en pause";
+$com->save();
+echo "<hr>";
+var_dump(Commentaire::all());
 echo "</pre>";
 // $testv->villageois_adresse = "22 rue des idéalistes";
 // $testv->villageois_EMAIL = "22 rue des idéalistes";
