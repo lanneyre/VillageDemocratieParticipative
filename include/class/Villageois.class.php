@@ -48,7 +48,7 @@ class Villageois extends Utils
     //     }
     // }
 
-    private function exist(): bool
+    private function existInDb(): bool
     {
         $con = Bdd::getCon();
         $sql = "SELECT * FROM villageois WHERE villageois_EMAIL = :villageois_EMAIL";
@@ -63,7 +63,7 @@ class Villageois extends Utils
     public function save(): void
     {
         $con = Bdd::getCon();
-        if ($this->exist()) {
+        if ($this->existInDb()) {
             $sql = "UPDATE `villageois` SET `villageois_nom` = :villageois_nom, `villageois_prenom` = :villageois_prenom, `villageois_adresse` = :villageois_adresse, `villageois_date_naissance` = :villageois_date_naissance, `villageois_mot_de_passe` = :villageois_mot_de_passe, `villageois_privilege` = :villageois_privilege, `villageois_mandat` = :villageois_mandat WHERE `villageois`.`villageois_EMAIL` = :villageois_EMAIL";
         } else {
             $sql = "INSERT INTO `villageois` (`villageois_EMAIL`, `villageois_nom`, `villageois_prenom`, `villageois_adresse`, `villageois_date_naissance`, `villageois_mot_de_passe`, `villageois_privilege`, `villageois_mandat`) VALUES (:villageois_EMAIL, :villageois_nom, :villageois_prenom, :villageois_adresse, :villageois_date_naissance, :villageois_mot_de_passe, :villageois_privilege, :villageois_mandat);";
@@ -79,5 +79,15 @@ class Villageois extends Utils
             }
         }
         $req->execute();
+    }
+
+    public function delete(): void
+    {
+        $con = Bdd::getCon();
+        if ($this->existInDb()) {
+            $sql = "DELETE FROM `villageois` WHERE `villageois_EMAIL` = :villageois_EMAIL";
+            $query = $con->prepare($sql);
+            $query->execute([":villageois_EMAIL" => $this->villageois_EMAIL]);
+        }
     }
 }

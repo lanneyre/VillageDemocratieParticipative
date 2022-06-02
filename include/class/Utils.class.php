@@ -17,6 +17,7 @@ abstract class Utils
         } else if ($name != "villageois_EMAIL") {
             $this->$name = $value;
         }
+        // $this->save();
     }
 
     public static function all()
