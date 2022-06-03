@@ -38,8 +38,10 @@ class Categorie extends Utils
     {
         $con = Bdd::getCon();
         if ($this->existInDb()) {
+            $insert = false;
             $sql = "UPDATE `categorie` SET `categorie_nom` = :categorie_nom, `categorie_description` = :categorie_description WHERE `categorie`.`categorie_ID` = :categorie_ID";
         } else {
+            $insert = true;
             $sql = "INSERT INTO `categorie` (`categorie_ID`, `categorie_nom`, `categorie_description`) VALUES (:categorie_ID, :categorie_nom, :categorie_description)";
         }
         $req = $con->prepare($sql);
@@ -53,6 +55,9 @@ class Categorie extends Utils
             }
         }
         $req->execute();
+        if ($insert) {
+            $this->categorie_ID = $con->lastInsertId();
+        }
     }
 
     public function delete(): void

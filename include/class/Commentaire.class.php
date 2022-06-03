@@ -44,8 +44,10 @@ class Commentaire extends Utils
     {
         $con = Bdd::getCon();
         if ($this->existInDb()) {
+            $insert = false;
             $sql = "UPDATE `commentaire` SET `commentaire_texte` = :commentaire_texte, `commentaire_date` = :commentaire_date, `commentaire_etat` = :commentaire_etat, `proposition_ID` = :proposition_ID, `villageois_EMAIL` = :villageois_EMAIL WHERE `commentaire`.`commentaire_ID` = :commentaire_ID ";
         } else {
+            $insert = true;
             $sql = "INSERT INTO `commentaire` (`commentaire_ID`, `commentaire_texte`, `commentaire_date`, `commentaire_etat`, `proposition_ID`, `villageois_EMAIL`) VALUES (:commentaire_ID, :commentaire_texte, :commentaire_date, :commentaire_etat, :proposition_ID, :villageois_EMAIL) ";
         }
         $req = $con->prepare($sql);
@@ -61,6 +63,9 @@ class Commentaire extends Utils
             }
         }
         $req->execute();
+        if ($insert) {
+            $this->commentaire_ID = $con->lastInsertId();
+        }
         //$req->debugDumpParams();
     }
 

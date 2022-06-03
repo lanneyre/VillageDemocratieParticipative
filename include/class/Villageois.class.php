@@ -64,8 +64,10 @@ class Villageois extends Utils
     {
         $con = Bdd::getCon();
         if ($this->existInDb()) {
+            $insert = false;
             $sql = "UPDATE `villageois` SET `villageois_nom` = :villageois_nom, `villageois_prenom` = :villageois_prenom, `villageois_adresse` = :villageois_adresse, `villageois_date_naissance` = :villageois_date_naissance, `villageois_mot_de_passe` = :villageois_mot_de_passe, `villageois_privilege` = :villageois_privilege, `villageois_mandat` = :villageois_mandat WHERE `villageois`.`villageois_EMAIL` = :villageois_EMAIL";
         } else {
+            $insert = true;
             $sql = "INSERT INTO `villageois` (`villageois_EMAIL`, `villageois_nom`, `villageois_prenom`, `villageois_adresse`, `villageois_date_naissance`, `villageois_mot_de_passe`, `villageois_privilege`, `villageois_mandat`) VALUES (:villageois_EMAIL, :villageois_nom, :villageois_prenom, :villageois_adresse, :villageois_date_naissance, :villageois_mot_de_passe, :villageois_privilege, :villageois_mandat);";
         }
         $req = $con->prepare($sql);
@@ -79,6 +81,9 @@ class Villageois extends Utils
             }
         }
         $req->execute();
+        if ($insert) {
+            $this->villageois_EMAIL = $con->lastInsertId();
+        }
     }
 
     public function delete(): void

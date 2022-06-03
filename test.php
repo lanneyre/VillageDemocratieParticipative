@@ -62,13 +62,51 @@ echo "<pre>";
 
 // echo "<hr>";
 // var_dump(Categorie::all());
-var_dump(Commentaire::all());
+//var_dump(Commentaire::all());
 // $com = new Commentaire(texte: "les PHP5 sont fatigués", date: (new DateTime())->format("Y-m-d"), etat: "actif", proposition_ID: 1, villageois_EMAIL: "pierreAntoine@free.fr");
-$com = Commentaire::getById(1);
-$com->commentaire_texte = "Les PHP sont en pause";
-$com->save();
-echo "<hr>";
-var_dump(Commentaire::all());
+// $com = Commentaire::getById(1);
+// $com->commentaire_texte = "Les PHP sont en pause";
+// $com->save();
+// echo "<hr>";
+// $p1 = Periode::getByDate(new DateTime("2022-08-01"), new DateTime("2022-09-12"));
+// $p1->type_periode = "publier";
+// $p1->save();
+// $p2 = Periode::getByDate(new DateTime("2022-09-13"), new DateTime("2022-09-30"));
+// $p2->type_periode = "voter";
+// $p2->save();
+// $p1->delete();
+// $p2->delete();
+
+// $prop = new Proposition(proposition_etat:);
+// var_dump(Periode::all());
+
+
+var_dump(Categorie::all());
+echo "<hr> Création d'une categorie <hr>";
+$newCat = new Categorie(categorie_nom: "PHP5", categorie_description: "l'a qraime dé phranssé");
+
+echo "<hr> Affichage de la categorie crée<hr>";
+var_dump($newCat);
+
+echo "<hr> sauvegarde d'une categorie <hr>";
+$newCat->save();
+
+echo "<hr> Affichage de la categorie en bdd <hr>";
+var_dump(Categorie::getById($newCat->categorie_ID));
+
+echo "<hr> modification de la categorie<hr>";
+$newCat->categorie_description = "La crème de la France";
+
+echo "<hr> sauvegarde d'une categorie <hr>";
+$newCat->save();
+
+echo "<hr> Affichage des categories <hr>";
+var_dump(Categorie::all());
+
+echo "<hr> Suppression de la categorie <hr>";
+$newCat->delete();
+var_dump(Categorie::all());
+
 echo "</pre>";
 // $testv->villageois_adresse = "22 rue des idéalistes";
 // $testv->villageois_EMAIL = "22 rue des idéalistes";
