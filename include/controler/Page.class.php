@@ -43,6 +43,7 @@ class Page
             default:
                 # code...
                 //echo "test";
+                $this->vue = str_replace("[[imgHeader]]", "assets/img/home-bg3.jpg", $this->vue);
                 $this->vue = str_replace("[[AllPropositions]]", $this->Accueil(), $this->vue);
                 break;
         }
