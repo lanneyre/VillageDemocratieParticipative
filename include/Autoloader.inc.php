@@ -20,6 +20,10 @@ class Autoloader
      */
     static function autoload($class)
     {
-        require_once 'include/class/' . $class . '.class.php';
+        if (file_exists('../include/class/' . $class . '.class.php')) {
+            require_once '../include/class/' . $class . '.class.php';
+        } else {
+            require_once '../include/controler/' . $class . '.class.php';
+        }
     }
 }

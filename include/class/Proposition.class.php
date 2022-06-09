@@ -38,6 +38,16 @@ class Proposition extends Utils
         return $req->fetch();
     }
 
+    public static function getByCategorie(int $categorie_ID): array
+    {
+        $con = Bdd::getCon();
+        $sql = "SELECT * FROM proposition WHERE categorie_ID = :categorie_ID";
+        $req = $con->prepare($sql);
+        $req->execute([":categorie_ID" => $categorie_ID]);
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Proposition");
+        return $req->fetchAll();
+    }
+
     private function existInDb(): bool
     {
         $con = Bdd::getCon();
